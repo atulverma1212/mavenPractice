@@ -1,0 +1,12 @@
+POM - Project Object Model - contains information about the project and various configuration detail, goals and plugins
+
+Lifecycle:
+validate
+generate-resources
+compile
+test (testResource->testCompile->default-test)
+package
+install
+deploy
+
+Standard lifecycle: clean->build->site

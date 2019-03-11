@@ -10,13 +10,22 @@
     <packaging>jar</packaging>
 
     <scm>
-        <connection>scm:git:https://github.com/atulverma1212/mavenPractice</connection>
-        <developerConnection>scm:git:https://github.com/atulverma1212/mavenPractice</developerConnection>
-        <url>https://github.com/atulverma1212/mavenPractice</url>
+        <connection>scm:git:path_to_directory</connection>
+        <developerConnection>scm:git:path_to_directory</developerConnection>
+        <url>path_to_directory</url>
     </scm>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -102,6 +111,22 @@
                             </execution>
 
                             <execution>
+                                <id>id.resources</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <echo>resources phase - copying dev.properties</echo>
+                                        <delete file="src/main/resources/app.properties"/>
+                                        <copy file="resources/dev.properties"
+                                              tofile="src/main/resources/app.properties"/>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+
+                            <execution>
                                 <id>id.test</id>
                                 <phase>test</phase>
                                 <goals>
@@ -109,9 +134,23 @@
                                 </goals>
                                 <configuration>
                                     <tasks>
-                                        <echo>test phase - copying dev.properties</echo>
+                                        <echo>test phase</echo>
+                                    </tasks>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>id.testResources</id>
+                                <phase>generate-test-resources</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <echo>[generate-testResources] using dev.properties</echo>
+                                        <delete file="src/test/resources/app.properties"/>
                                         <copy file="resources/dev.properties"
-                                              tofile="src/main/resources/app.properties"/>
+                                              tofile="src/test/resources/app.properties"/>
                                     </tasks>
                                 </configuration>
                             </execution>
